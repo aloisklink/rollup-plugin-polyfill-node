@@ -57,6 +57,18 @@ var splitPath = function(filename) {
   return splitPathRe.exec(filename).slice(1);
 };
 
+// Adapted from Node.JS official source code under Node.JS (MIT) License
+// https://github.com/nodejs/node/blob/42c0b2ae65e99e4774fe1d8a82a50b09b894adc7/lib/path.js#L130-L150
+export function format(pathObject) {
+  const dir = pathObject.dir || pathObject.root;
+  const base = pathObject.base ||
+    `${pathObject.name || ''}${pathObject.ext || ''}`;
+  if (!dir) {
+    return base;
+  }
+  return dir === pathObject.root ? `${dir}${base}` : `${dir}${sep}${base}`;
+}
+
 // path.resolve([from ...], to)
 // posix version
 export function resolve() {
@@ -205,6 +217,7 @@ export function extname(path) {
 }
 export default {
   extname: extname,
+  format: format,
   basename: basename,
   dirname: dirname,
   sep: sep,
