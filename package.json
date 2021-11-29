@@ -7,6 +7,7 @@
   "scripts": {
     "pretest": "npm run build",
     "test": "mocha",
+    "prepare": "npm run build",
     "prebuild": "rm -rf dist && mkdir dist",
     "build": "npm run build:constants && npm run build:polyfills && npm run collect:polyfills && npm run build:bundlers",
     "build:bundlers": "tsc -p . && rollup -c",
